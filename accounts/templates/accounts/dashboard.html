@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            animation: fadeBg 1.2s ease-in-out;
+            color: white;
+        }
+
+        @keyframes fadeBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .dashboard-box {
+            background: rgba(255, 255, 255, 0.1);
+            width: 450px;
+            padding: 35px 40px;
+            border-radius: 18px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 10px 35px rgba(0,0,0,0.3);
+            animation: slideUp 0.9s ease;
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(40px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        h2 {
+            margin-bottom: 12px;
+            font-size: 30px;
+        }
+
+        p {
+            opacity: 0.8;
+            font-size: 17px;
+            margin-bottom: 30px;
+        }
+
+        .logout-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0px 10px 25px rgba(255,65,108,0.4);
+        }
+    </style>
+
+</head>
+<body>
+
+    <div class="dashboard-box">
+        <h2>Welcome, {{ request.user.username }} 👋</h2>
+        <p>You have successfully logged in using 2FA OTP verification.</p>
+
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+</body>
+</html>
